@@ -14,7 +14,7 @@ https://github.com/zldeng/SimpleXGBoost/tree/master/src
 
 ## 3.Infomation
 
-tested on breast cancer data.
+tested on [breast cancer data][1].
 
 And it will be updated in a few days.
 
@@ -44,5 +44,5 @@ And it will be updated in a few days.
 `bst.predict_proba(data[['mean_radius','mean_texture','mean_perimeter']])`
 
 
-
+[1]: https://www.google.com/search?sxsrf=ALeKk029PeUFQUA_uWbUnXto310chqp1yQ%3A1589448237629&source=hp&ei=LQ69Xv-cJNalmAWMpb_oAg&q=breast+cancer+dataset&oq=breast+cancer+data&gs_lcp=CgZwc3ktYWIQAxgAMgUIABDLATIFCAAQywEyBQgAEMsBMgUIABDLATIFCAAQywEyBQgAEMsBMgUIABDLATIFCAAQywEyBQgAEMsBMgUIABDLAToECCMQJzoCCABQqwZYtCJg5ypoAHAAeACAAbMCiAG3F5IBBzYuNi41LjGYAQCgAQGqAQdnd3Mtd2l6&sclient=psy-ab
 
