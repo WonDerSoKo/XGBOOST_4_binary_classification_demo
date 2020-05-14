@@ -20,23 +20,25 @@ And it will be updated in a few days.
 
 ## 4.Example:
 
-```from sklearn.data_sets import load_breast_cancer```
-import pandas as pd
-import numpy as np
+`from sklearn.data_sets import load_breast_cancer`
 
-data = pd.DataFrame(load_breast_cancer()['data'])
+`import pandas as pd`
 
-data.columns = [*map(lambda x:x.replace(' ','_'),load_breast_cancer()['feature_names'].tolist())]
+`import numpy as np`
 
-data['y'] = load_breast_cancer()['target']
+`data = pd.DataFrame(load_breast_cancer()['data'])`
 
-bst = XGB_Binary_Classifier()
+`data.columns = [*map(lambda x:x.replace(' ','_'),load_breast_cancer()['feature_names'].tolist())]`
 
-bst.fit(data[['mean_radius','mean_texture','mean_perimeter']],data.y)
+`data['y'] = load_breast_cancer()['target']`
 
-bst.predict(data[['mean_radius','mean_texture','mean_perimeter']])
+`bst = XGB_Binary_Classifier()`
 
-bst.predict_proba(data[['mean_radius','mean_texture','mean_perimeter']])```
+`bst.fit(data[['mean_radius','mean_texture','mean_perimeter']],data.y)`
+
+`bst.predict(data[['mean_radius','mean_texture','mean_perimeter']])`
+
+`bst.predict_proba(data[['mean_radius','mean_texture','mean_perimeter']])`
 
 
 
