@@ -26,6 +26,9 @@ And it will be updated in a few days.
 
 `import numpy as np`
 
+
+
+
 `data = pd.DataFrame(load_breast_cancer()['data'])`
 
 `data.columns = [*map(lambda x:x.replace(' ','_'),load_breast_cancer()['feature_names'].tolist())]`
