@@ -139,12 +139,12 @@ class BaseXGBTree():
         print(best_feature+' '+str(best_split)+' best_gain is '+str(best_gain))
         return best_feature, best_split
 
-    def func_gain(self,left_dataset, right_dataset,lamda=0,gamma=0):
+    def func_gain(self,left_dataset, right_dataset):
         G_l = left_dataset['g'].sum()
         G_r = right_dataset['g'].sum()
         H_l = left_dataset['h'].sum()
         H_r = right_dataset['h'].sum()
-        gain = 0.5*(G_l**2/(H_l+self.reg_lambda)+G_r**2/(H_r+self.reg_lambda)-(G_l+G_r)**2/(H_l+H_r+lamda))-self.gamma
+        gain = 0.5*(G_l**2/(H_l+self.reg_lambda)+G_r**2/(H_r+self.reg_lambda)-(G_l+G_r)**2/(H_l+H_r+self.reg_lambda))-self.reg_alpha
         return(gain)
 
     def split_data(self,dataset, targets, split_feature, split_value):
