@@ -125,6 +125,8 @@ class BaseXGBTree():
         best_feature = ''
         best_split = ''
         best_gain = -np.inf
+        w = -instances['g'].sum()/instances['h'].sum()
+        loss = (targets*np.log(1+np.exp(-w))+(1-targets)*np.log(1+np.exp(w))).sum()
         for col in instances.drop(columns=['g','h']).columns:
             cut_points = list(set(instances[col].tolist()))
             cut_points.sort()
@@ -132,7 +134,12 @@ class BaseXGBTree():
             for i in cut_points:
                 left_dt,right_dt,left_target,right_target = self.split_data(instances,targets,col,i)
                 gain = self.func_gain(left_dt,right_dt)
-                if (gain>best_gain):
+                w_l = -left_dt['g'].sum()/left_dt['h'].sum()
+                w_r = -right_dt['g'].sum()/right_dt['h'].sum()
+                loss_l = (left_target*np.log(1+np.exp(-w_l))+(1-left_target)*np.log(1+np.exp(w_l))).sum()
+                loss_r = (right_target*np.log(1+np.exp(-w_r))+(1-right_target)*np.log(1+np.exp(w_r))).sum()
+                loss_reduction = loss-loss_l-loss_r
+                if (gain>best_gain)&(loss_reduction>=self.gamma):
                     best_feature = col
                     best_split = i
                     best_gain = gain
@@ -148,10 +155,10 @@ class BaseXGBTree():
         return(gain)
 
     def split_data(self,dataset, targets, split_feature, split_value):
-        left_dataset = dataset[dataset[split_feature] <= split_value]
-        right_dataset = dataset[dataset[split_feature] > split_value]
-        left_targets = targets[dataset[split_feature] <= split_value]
-        right_targets = targets[dataset[split_feature] > split_value]
+        left_dataset = dataset[dataset[split_feature] < split_value].reset_index(drop=True)
+        right_dataset = dataset[dataset[split_feature] >= split_value].reset_index(drop=True)
+        left_targets = targets[dataset[split_feature] < split_value].reset_index(drop=True)
+        right_targets = targets[dataset[split_feature] >= split_value].reset_index(drop=True)
         return left_dataset, right_dataset, left_targets, right_targets
 
     def calc_leaf_value(self,instances):
